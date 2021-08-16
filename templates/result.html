@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/result.css') }}">
+  <style>
+    div.img_site{
+      margin: 0 auto;
+      text-align: center;
+    }
+  </style>
+    <title>test_table</title>
+</head>
+<body>
+<div class="header">
+<ul class='horizontal'>
+  <li><a class="active" href="{{ url_for('index') }}">主页</a></li>
+  <li><a href="{{ url_for('info_show') }}">结果列表</a></li>
+  <li>
+<form action="" method=post style="list-style-type: none;margin: 10px 10px;">
+<input id="type" type="text" list="typelist" placeholder="请选择" name=type_cov>
+<datalist id="typelist">
+    {% for key in type_names %}
+    <option>{{ key }}</option>
+    {% endfor %}
+</datalist>
+<input type=submit name="file">
+</form>
+</li>
+<li style="float: right;margin: 5px;">{{ type }}<br>{{ time }}</li>
+</ul>
+</div>
+<div class="summary">
+
+<ul class="vertical">
+  <li><a  href="#M1">突变株名称</a></li>
+  <div class="dropdown">
+  <a href="#M2" class="dropbtn">生物信息学分析--序列比对分析</a>
+   <div class="dropdown-content">
+     <a href="#M21">扩增基因名称</a>
+     <a href="#M22">引物、探针序列</a>
+     <a href="#M23">靶扩增区域与突变株序列比对图</a>
+     <a href="#M24">突变株序列编号</a>
+  </div>
+  </div>
+  <li><a href="#M3">可能存在影响的突变株位点</a></li>
+</ul>
+</div>
+
+{% if type != None %}
+<div class='main'>
+  <h1>评价报告样表</h1>
+  <p>产品名称：新型冠状病毒2019-nCoV核酸检测试剂盒（荧光PCR法）</p>
+  <p>生产企业：圣湘生物科技股份有限公司</p>
+  <h2>填 表 说 明</h2>
+  <ol>
+    <li>请依据测定靶物质性质，填写对应表格。核酸检测试剂请填写表1、抗体检测试剂请填写表2、抗原检测试剂请填写表3。</li>
+    <li>请向相关省级药品监督管理部门，索取本表格电子版。</li>
+    <li>要求填写的栏目内容应当按表格内提示，逐条填写清楚，不得空白，不得缺项。无相关内容处应当填写“/”或“无”；因表格式所限而无法完整填写相应内容时，请另附附件；报送时请提交评价报告表电子文档。（包括盖章PDF版和Word或Excel版本）</li>
+    <li>每个突变株请单独填写一份评价报告表。</li>
+    <li>次月报送时，如无新的可评价的突变株，请在“1.”中标明“无新突变株”，此时无需重复填写“2～5”。</li>
+  </ol>
+  <h1>核酸检测试剂评价报告表</h1>
+  <h2 id='M1'>1.突变株名称</h2>
+  {# 这里需要更改  #}
+  <p>突变株{{ type }} 。基于GISAID数据库，共获取到{{ type_fasta_num }}条Lineage{{  type }}的序列（{{ time }}）。</p>
+  <h2 id='M2'>2.生物信息学分析--序列比对分析</h2>
+  <h3 id='M21'>2.1扩增基因名称</h3>
+  <p>ORF1ab，N</p>
+  <h3 id='M22'>2.2引物、探针序列</h3>
+  <div class="prob_seq">
+    <table width="700">
+      <tr>
+        <th class="left_1">基因</th>
+        <th class="mid_1">名称</th>
+        <th class="right_1">序列</th>
+      </tr>
+      <tr>
+        <td rowspan="3">ORF1ab区域</td>
+        <td>引物SA-XIN-F3</td>
+        <td>TTGCTTATGAAAGTTTACGCCCTG</td>
+      </tr>
+      <tr>
+        <td>引物SA-XIN-R3</td>
+        <td>TCTTTCACAAGTGCCGTGCCTA</td>
+      </tr>
+      <tr>
+        <td>探针SA-XIN-P3</td>
+        <td>ACACGTTATGTGCTCATGGATGGCT</td>
+      </tr>
+      <tr>
+        <td rowspan="3">N基因</td>
+        <td>引物SA-N-XIN-F1</td>
+        <td>GGGGAACTTCTCCTGCTAGAAT</td>
+      </tr>
+      <tr>
+        <td>引物SA-N-XIN-R1</td>
+        <td>CAGACATTTTGCTCTCAAGCTG</td>
+      </tr>
+      <tr>
+        <td>探针SA-N-XIN-P1</td>
+        <td>TTGCTGCTGCTTGACAGATT</td>
+      </tr>
+    </table>
+  </div>
+  <h3 id='M23'>2.3靶扩增区域与突变株序列比对图</h3>
+  <p>这里采用MAFFT v7.450工具对参考序列和突变株的序列进行了多序列比对分析，并用BioEdit v7.0.5.3进行了查看和截图。</p>
+  <div class="img_site">
+    <img src="{{ url_for('static',filename='img/' + type + '/image001.png') }}" />
+    <p></p>
+    <img src="{{ url_for('static',filename='img/' + type + '/image003.png') }}" />
+    <p></p>
+    <img src="{{ url_for('static',filename='img/' + type + '/image005.png') }}" />
+    <p></p>
+    <img src="{{ url_for('static',filename='img/' + type + '/image007.png') }}" />
+  </div>
+  
+  {% if type_fasta_num <= 200 %}
+  <p>随后对多序列比对文件采用UCSC Genome Bioinformatics Group's suite of biological analysis and web display programs v413中的faToVcf进行突变分析，筛选出的高频突变作为该病毒株的代表性突变，如下表：</p>
+  {% else %}
+  <p>随后对该突变株序列采用minimap2 v2.17比对到参考序列NC_045512.2并采用samtools v1.9-37-g5708485和VarScan v2.4进行突变检出分析，筛选出的高频突变作为该病毒株的代表性突变，如下表：</p>
+  {% endif %}
+  <div class="mutation_table">
+    <table width="1100">
+      <tr><td class="left_1">位置</td><td class="mid_1">突变(Genome)</td><td class="mid_1">突变(Amino Acid)</td><td class="mid_1">REF</td><td class="mid_1">ALT</td><td class="mid_1">突变比例</td><td class="mid_1">突变计数</td><td class="right_1">序列总数</td></tr>
+      {% for mutation_info in mutation_list %}
+      {% if mutation_info|length == 9 %}
+      <tr style="color: red">
+      {% else %}
+      <tr>
+      {% endif %}
+      {% for i in mutation_info[:8] %}
+        <td>{{ i }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+      {# <tr><td>210</td><td>G210T</td><td>-</td><td>G</td><td>T</td><td>99.38%</td><td>323</td><td>325</td></tr> #}
+    </table>
+  </div>
+  <h3 id='M24'>2.4突变株序列编号</h3>
+  <p>{{ type }}突变株的序列（共{{ type_fasta_num }}条）：</p>
+  <h2 id='M3'>3.可能存在影响的突变株位点</h2>
+  <p>突变株{{ type }}：{{ conclusion }}</p>
+  <footer class="footer">word下载：<a href="{{ url_for('download_file',file=docx_file) }}">{{ docx_file }}</a></footer>
+</div>
+{% else %}
+<div class="main">
+<h1>请先选择需要查询的珠系</h1>
+</div>
+{% endif %}
+</body>
+</html>

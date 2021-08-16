@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h1>Overview</h1>
+  <p>Do you want to see <a href="{{ url_for('info_show') }}">all result?</a></p>
+  <h1></h1>
+  <p>do you want to send file <a href="{{ url_for('upload_file') }}">upload?</a></p>
+  <h1></h1>
+  <p>do you want to see <a href="{{ url_for('result') }}">result?</a></p>
+{% endblock %}

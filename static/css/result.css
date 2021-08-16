@@ -1,0 +1,145 @@
+div.header {
+    background-color: #EEE;
+    border:0;
+    margin:0;
+    padding: 0.5em;
+    font-size: 100%;
+    font-weight: bold;
+    position:fixed;
+    width:100%;
+    top:0;
+    left:0;
+    z-index:2;
+  }
+div.header ul.horizontal {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #e7e7e7;
+    background-color: #f3f3f3;
+}
+
+div.header ul.horizontal li {
+    float: left;
+}
+
+div.header ul.horizontal li a {
+    display: block;
+    color: #666;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+div.header ul.horizontal li a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+div.header ul.horizontal li a.active {
+    color: white;
+    background-color: #4CAF50;
+}
+
+div.summary {
+    width: 18em;
+    position:fixed;
+    top: 3em;
+    margin:1em 0 0 1em;
+    background-color: #f1f1f1;
+  }
+ul.vertical {
+    list-style-type: none;
+    padding-left:0;
+    margin: 0;
+    padding: 0;
+    width: 14%;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+
+ul.vertical li a, .dropbtn {
+    display: inline-block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+ul.vertical li a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+ul.vertical li a:hover:not(.active) .dropbtn {
+    background-color: #555;
+    color: white;
+}
+  h1{
+    text-align: center;
+  }
+  div.main {
+    display:block;
+    position:absolute;
+    overflow:auto;
+    height:auto;
+    width:auto;
+    top:4.5em;
+    bottom:2.3em;
+    left:18em;
+    right:5em;
+    border-left: 1px solid #CCC;
+    padding:0 0 0 1em;
+    background-color: white;
+    z-index:1;
+  }
+  div.dropdown{
+    display: inline-block;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+div.prob_seq table tr{
+  height: 40px;
+}
+div.mutation_table table tr{
+  height: 30px
+}
+table {
+  border-collapse:collapse;border:solid #000000;border-width:2px 0 2px 0px;margin:auto;text-align: center;
+}
+.left_1{
+  border:solid #000000;border-width:1px 1px 2px 0px;padding:2px;font-weight:bolder;
+}
+.right_1{
+  border:solid #000000;border-width:1px 0px 2px 1px;padding:2px;font-weight:bolder;
+}
+.mid_1{
+  border:solid #000000;border-width:1px 1px 2px 1px;padding:2px;font-weight:bolder;
+}
+ .footer {
+            position: fixed;
+            left: 0px;
+            bottom: 0px;
+            width: 100%;
+            height: 20px;
+            background-color: #eee;
+            z-index: 9999;
+        }
+        
